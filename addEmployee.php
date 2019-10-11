@@ -22,10 +22,10 @@ checkIfLoggedIn();
 
         $rowSQL = mysqli_query($conn,"SELECT MAX(emp_no) AS max FROM employees;" );
         $num = mysqli_fetch_array( $rowSQL );
-        $largestNumber = $num['max'];
+        $latestNumber = $num['max'];
 
         $sql = "INSERT INTO employees (emp_no, birth_date, first_name, last_name, gender, hire_date) VALUES ('";
-        $sql .= ($largestNumber+1);
+        $sql .= ($latestNumber)+1;
         $sql .= "','";
         $sql .= $_POST['birthDate'];
         $sql .= "','";

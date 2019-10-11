@@ -91,7 +91,7 @@ checkIfLoggedIn();
         }
         echo $next; ?>">previous</a></li >
     <li><a href="employees.php?page=0">1</a></li>
-    <li><a onclick="var page=prompt('Jump to page: (1-12001)', 2); if(page != null) href='employees.php?page='+Math.min(12500, Math.max(0, page - 1))+''">...</a></li>
+    <li><a onclick="var page=prompt('Jump to page: (1-12001)', 1); if(page != null) href='employees.php?page='+Math.min(12500, Math.max(0, page - 1))+''">...</a></li>
     <li><a href="employees.php?page=12000">12001</a></li>
     <li><a href="employees.php?page=<?php
         if(isset($_GET['page'])) {
