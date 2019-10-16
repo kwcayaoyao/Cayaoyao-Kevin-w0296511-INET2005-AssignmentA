@@ -5,7 +5,7 @@ checkIfLoggedIn();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Our film list</title>
+    <title>Employee List</title>
     <style>
         table, th, tr, td { border: solid 2px black;}
         li { list-style-type: none; display: inline; padding: 10px; text-align: center;}
@@ -43,8 +43,6 @@ checkIfLoggedIn();
     $searchTarget = $_POST['nameInput'];
 
     $res = mysqli_query($conn,"SELECT count(*) FROM employees;");
-
-    $count = mysqli_query($conn,"SELECT emp_no FROM employees ORDER BY emp_no DESC LIMIT 1;");
 
     $rw = mysqli_fetch_array($res);
 
@@ -91,7 +89,7 @@ checkIfLoggedIn();
         }
         echo $next; ?>">previous</a></li >
     <li><a href="employees.php?page=0">1</a></li>
-    <li><a onclick="var page=prompt('Jump to page: (1-12001)', 1); if(page != null) href='employees.php?page='+Math.min(12500, Math.max(0, page - 1))+''">...</a></li>
+    <li><a onclick="var page=prompt('Jump to page: (1-12001)', 1); if(page != null) href='employees.php?page='+(page - 1)+''">...</a></li>
     <li><a href="employees.php?page=12000">12001</a></li>
     <li><a href="employees.php?page=<?php
         if(isset($_GET['page'])) {

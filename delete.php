@@ -4,12 +4,6 @@ checkIfLoggedIn();
 
 include_once('dbconn.php');
 
-if( isset($_GET['del']) )
-{
-$id = $_GET['del'];
-$sql= "DELETE FROM employees WHERE emp_id='$id'";
-
-}
 ?>
 
 <!DOCTYPE html>
