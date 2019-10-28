@@ -1,12 +1,20 @@
+<?php include('server.php') ?>
 <!DOCTYPE html>
 <html>
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LepBb8UAAAAANujZw4Zxg41GNfSzOjIC5hnteq_"></script>
+    <script>
+        grecaptcha.ready(function() {
+            grecaptcha.execute('6LepBb8UAAAAANujZw4Zxg41GNfSzOjIC5hnteq_', {action: 'homepage'});
+        });
+    </script>
 </head>
 <body>
     <h1>Member Login</h1>
-    <form name="form1" method="post" action="checkLogin.php">
+    <?php include('errors.php'); ?>
+    <form name="form1" method="post" action="checkLogin.php" enctype="multipart/form-data">
         <table>
             <tr>
                 <td>
@@ -25,7 +33,15 @@
                 </td>
             </tr>
         </table>
+        <div class="captcha_wrapper">
+            <div class="g-recaptcha" data-sitekey="6LepBb8UAAAAANujZw4Zxg41GNfSzOjIC5hnteq_"></div>
+        </div>
         <input type="submit" name="submit" id="submit" value="Login" />
     </form>
+    <br>
+    <form name="registerForm" action="register.php" method="post">
+        <input type="submit" name="regButton" value="Register New User" />
+    </form>
+
 </body>
 </html>

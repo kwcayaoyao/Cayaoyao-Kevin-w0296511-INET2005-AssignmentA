@@ -15,31 +15,38 @@ include_once('dbconn.php');
 <?php
 if( isset($_GET['del']) )
 {
-
-    $conn = mysqli_connect("localhost", "root", "inet2005", "employees");
-    if(!$conn)
-    {
-        die("Unable to connect to database: " . mysqli_connect_error());
-    }
+    $conn = getDbConnection();
 
     $id = $_GET['del'];
 
 
-    $sql = "DELETE FROM employees WHERE emp_no = ";
-    $sql .= $id;
-    $sql .= ";";
+    $sql = "DELETE FROM employees WHERE emp_no = $id";
 
-    $result = mysqli_query($conn, $sql);
-    if(!$result)
-    {
-        die("Unable to delete record: " . mysqli_error($conn));
-    }
-    else
-    {
-        echo "<h2>Successfully deleted " . mysqli_affected_rows($conn)." record(s)</h2>";
+    $stmt = $conn->prepare($sql);
+
+    $result = $stmt->execute();
+
+    if($result){
+        echo "<h2>Successfully deleted record</h2>";
+    } else {
+        echo "Unable to insert record";
     }
 
-    mysqli_close($conn);
+//    $sql = "DELETE FROM employees WHERE emp_no = ";
+//    $sql .= $id;
+//    $sql .= ";";
+//
+//    $result = mysqli_query($conn, $sql);
+//    if(!$result)
+//    {
+//        die("Unable to delete record: " . mysqli_error($conn));
+//    }
+//    else
+//    {
+//        echo "<h2>Successfully deleted " . mysqli_affected_rows($conn)." record(s)</h2>";
+//    }
+//
+//    mysqli_close($conn);
 }
 
 ?>

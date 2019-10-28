@@ -1,4 +1,5 @@
 <?php
+require_once ('dbconn.php');
 require('isLoggedIn.php');
 checkIfLoggedIn();
 ?>
@@ -38,8 +39,11 @@ checkIfLoggedIn();
     </thead>
     <tbody>
     <?php
-    require_once("dbconn.php");
-    $conn = getDbConnection();
+    $conn = mysqli_connect("kevincayaoyao.dev", "Kevin", "Password", "employees");
+    if(!$conn)
+    {
+        die("Unable to connect to database: " . mysqli_connect_error());
+    }
     $searchTarget = $_POST['nameInput'];
 
     $res = mysqli_query($conn,"SELECT count(*) FROM employees;");
@@ -89,7 +93,7 @@ checkIfLoggedIn();
         }
         echo $next; ?>">previous</a></li >
     <li><a href="employees.php?page=0">1</a></li>
-    <li><a onclick="var page=prompt('Jump to page: (1-12001)', 1); if(page != null) href='employees.php?page='+(page - 1)+''">...</a></li>
+    <li><a href="employees.php" onclick="var page=prompt('Jump to page: (1-12001)', 1); if(page != null) href='employees.php?page='+(page - 1)+''">Jump to Page</a></li>
     <li><a href="employees.php?page=12000">12001</a></li>
     <li><a href="employees.php?page=<?php
         if(isset($_GET['page'])) {

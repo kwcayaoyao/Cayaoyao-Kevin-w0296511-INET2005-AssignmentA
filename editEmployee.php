@@ -1,6 +1,7 @@
 <?php
 require('isLoggedIn.php');
 checkIfLoggedIn();
+require_once ('dbconn.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,22 +13,42 @@ checkIfLoggedIn();
 <?php
 if( isset($_GET['edit']) )
 {
-    $conn = mysqli_connect("localhost", "root", "inet2005", "employees");
-    if(!$conn)
-    {
-        die("Unable to connect to database: " . mysqli_connect_error());
-    }
-
+//    $conn = mysqli_connect("localhost", "Kevin", "Password", "employees");
+//    if(!$conn)
+//    {
+//        die("Unable to connect to database: " . mysqli_connect_error());
+//    }
+    $conn = getDbConnection();
     $id = $_GET['edit'];
 
-    $sql = "SELECT * FROM employees WHERE emp_no = ";
-    $sql .=$id;
-    $sql .=";";
+    $sql = "CALL GetEmployeeById(:empId);";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(":empId", $id, PDO::PARAM_INT);
 
-    $result = mysqli_query($conn, $sql);
+    $success = $stmt->execute();
+
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+//    if($row){
+//        $id = $row['emp_no'];
+//        $birthdate = $row['birth_date'];
+//        $firstname = $row['first_name'];
+//        $lastname = $row['last_name'];
+//        $gender = $row['gender'];
+//        $hiredate = $row['hire_date'];
+//    } else {
+//        die("Actor with id $id $sql was not found");
+//    }
+
+
+//    $sql = "SELECT * FROM employees WHERE emp_no = ";
+//    $sql .=$id;
+//    $sql .=";";
+//
+//    $result = mysqli_query($conn, $sql);
 }
 
-while($row = mysqli_fetch_assoc($result))
+//while($row = mysqli_fetch_assoc($result))
 {
     echo "<form id='newForm' name='newForm' method='post' action='edit.php' onsubmit='return checkForm()'>";
     echo "<p><label>Birth Date: <input type='text' name='birthDate' id='birthDate' value='".$row['birth_date']."' onchange=\"checkDate(this,'Please enter a valid Date format (YYYY-MM-DD)')\"/></label></p>";
